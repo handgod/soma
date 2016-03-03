@@ -465,7 +465,8 @@ Java_com_android_soma_JniSppourtTestActivity_stringFromJNI( JNIEnv* env,
 	pid_t target_pid;
 //	char *pn = "/system/bin/servicemanager";
 //	char *pn = "com.example.testar";
-	char *pn = "com.android.calendar";
+//	char *pn = "com.android.calendar";
+	char *pn = "com.android.soma";
 	char *is = "/data/local/libso.so";
 //	char *is = "/data/app-lib/com.example.testar2/libso.so";
 	//	char *pn = "system_server";

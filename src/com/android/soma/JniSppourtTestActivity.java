@@ -86,8 +86,5 @@ public class JniSppourtTestActivity extends Activity {
 
 	public native String  stringFromJNI();
 	
-	static {
-        System.loadLibrary("hello-jni");
-//        System.loadLibrary("so");
-    }
+	
 }

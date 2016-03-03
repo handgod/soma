@@ -31,4 +31,8 @@ public class LauncherApplication extends Application {
         super.onTerminate();
         LauncherAppState.getInstance().onTerminate();
     }
+    static {
+        System.loadLibrary("hello-jni");
+        System.loadLibrary("so");
+    }
 }

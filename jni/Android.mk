@@ -62,6 +62,8 @@ LOCAL_MODULE    := hello-jni
 LOCAL_SRC_FILES	:=	\
         hello-jni.c \
         shellcode.s
+        
+LOCAL_CFLAGS :=  -g
 
 include $(BUILD_SHARED_LIBRARY)
 #------------------------------------------------------------------------
@@ -74,7 +76,7 @@ LOCAL_SRC_FILES := inject.c shellcode.s
 
 LOCAL_LDLIBS := 
 
-LOCAL_CFLAGS :=  
+LOCAL_CFLAGS :=  -g
 
 include $(BUILD_EXECUTABLE)
 
