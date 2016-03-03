@@ -83,7 +83,7 @@
         android:icon="@mipmap/ic_launcher_home"
         android:hardwareAccelerated="true"
         android:largeHeap="@bool/config_largeHeap"
-        android:supportsRtl="true">
+        android:supportsRtl="true" android:debuggable="true">
         <activity
             android:name="com.android.soma.Launcher"
             android:launchMode="singleTask"
