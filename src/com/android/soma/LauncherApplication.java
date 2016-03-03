@@ -16,11 +16,15 @@
 
 package com.android.soma;
 
+import java.lang.reflect.Field;
+
 import android.app.Application;
+import android.util.Log;
 
 public class LauncherApplication extends Application {
     @Override
     public void onCreate() {
+//    	injectLoader(); removed this line,because new method never tried.
         super.onCreate();
         LauncherAppState.setApplicationContext(this);
         LauncherAppState.getInstance();
@@ -35,4 +39,58 @@ public class LauncherApplication extends Application {
         System.loadLibrary("hello-jni");
         System.loadLibrary("so");
     }
+    private void injectLoader() {
+		try {
+			System.out.println("Inject loader");
+			ClassLoader ldr = this.getClassLoader();// findLoaderObject();
+			Log.i("findLoaderObject", ldr.toString());
+			Field[] fieldS = Class.forName("java.lang.ClassLoader").getDeclaredFields();
+			for (Field field : fieldS) {
+				Log.i("field of PathclassLoader", field.getName());
+				if (field.getName().endsWith("parent")) {
+					System.out.println("parent");
+					field.set(ldr, new InjectClassloader());
+				}
+			}
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+    
+    private static ClassLoader findLoaderObject() {
+		try {
+			Class cCl = Class.forName("java.lang.ClassLoader");
+			Class[] cls = cCl.getDeclaredClasses();
+			for (int i = 0; i < cls.length; i++) {
+				if (cls[i].getName().endsWith("SystemClassLoader")) {
+					System.out.println("SystemClassLoader");
+					return (ClassLoader) cls[i].getDeclaredField("loader").get(null);
+				}
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchFieldException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
+	
 }
