@@ -11,7 +11,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <android/Log.h>
-#include "com_example_testar_MainActivity.h"
+#include "com_android_soma_JniSppourtTestActivity.h"
 
 
 #define ENABLE_DEBUG 0
@@ -459,7 +459,7 @@ exit:
  *   apps/samples/hello-jni/project/src/com/example/hellojni/HelloJni.java
  */
 jstring
-Java_com_example_testar_MainActivity_stringFromJNI( JNIEnv* env,
+Java_com_android_soma_JniSppourtTestActivity_stringFromJNI( JNIEnv* env,
                                                   jobject thiz )
 {
 	pid_t target_pid;

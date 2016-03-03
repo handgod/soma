@@ -21,7 +21,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.soma">
     
-    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="19"/>
+    <uses-sdk android:minSdkVersion="19" android:targetSdkVersion="23"/>
     
     <permission
         android:name="com.android.soma.permission.PRELOAD_WORKSPACE"
@@ -76,7 +76,8 @@
     <uses-permission android:name="com.android.soma.permission.RECEIVE_FIRST_LOAD_BROADCAST" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+  	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    
     <application
         android:name="com.android.soma.LauncherApplication"
         android:label="@string/application_name"
@@ -162,6 +163,18 @@
             >
         </service>
 
+         <!-- JNI Test -->
+         <activity
+            android:name="com.android.soma.JniSppourtTestActivity"         
+            android:label="@string/Jni_Support_Test"
+            android:enabled="@bool/jni_test_enabled"
+            android:icon="@mipmap/ic_launcher_home"
+            >
+            <intent-filter>             
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
         <!-- Intent received used to prepopulate the default workspace. -->
         <receiver
             android:name="com.android.soma.PreloadReceiver"

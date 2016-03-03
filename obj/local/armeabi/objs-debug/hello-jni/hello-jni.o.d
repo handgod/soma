@@ -60,7 +60,7 @@ obj/local/armeabi/objs-debug/hello-jni/hello-jni.o: jni/hello-jni.c \
  F:/BaiduYunDownload/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/linux/capability.h \
  F:/BaiduYunDownload/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/pathconf.h \
  F:/BaiduYunDownload/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/android/Log.h \
- jni/com_example_testar_MainActivity.h
+ jni/com_android_soma_JniSppourtTestActivity.h
 
 F:/BaiduYunDownload/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/jni.h:
 
@@ -184,4 +184,4 @@ F:/BaiduYunDownload/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/p
 
 F:/BaiduYunDownload/android-ndk-r10e/platforms/android-19/arch-arm/usr/include/android/Log.h:
 
-jni/com_example_testar_MainActivity.h:
+jni/com_android_soma_JniSppourtTestActivity.h:

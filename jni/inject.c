@@ -471,7 +471,8 @@ exit:
 	return ret;
 }
 int main(int argc, char** argv) {
-	char *pn = "com.example.testar";
+//	char *pn = "com.example.testar";
+	char *pn = "com.android.soma";
 //	char *pn = "com.android.calendar";
 //	char *pn = "com.android.settings";
 //	char *pn = "/system/bin/servicemanager";

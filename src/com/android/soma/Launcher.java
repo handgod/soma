@@ -472,6 +472,11 @@ public class Launcher extends Activity
         unlockScreenOrientation(true);
 
         showFirstRunCling();
+        
+//        following code is for Native method support test
+        {
+        	
+        }
     }
 
     protected void onUserLeaveHint() {
@@ -979,7 +984,12 @@ public class Launcher extends Activity
 
     protected void startSettings() {
     }
-
+    
+    protected void startJniTest() {
+    	Intent it=new Intent(this,JniSppourtTestActivity.class);
+    	startActivity(it);   	
+    }
+    
     public interface QSBScroller {
         public void setScrollY(int scrollY);
     }
@@ -1175,11 +1185,23 @@ public class Launcher extends Activity
         View settingsButton = findViewById(R.id.settings_button);
         settingsButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View arg0) {               
                 startSettings();
             }
         });
         settingsButton.setOnTouchListener(getHapticFeedbackTouchListener());
+        
+        //JNI Support Test button
+        View jniButton = findViewById(R.id.JNI_button);
+        jniButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+            	 startJniTest();
+            }
+        });
+        jniButton.setOnTouchListener(getHapticFeedbackTouchListener());
+        
+        
         mOverviewPanel.setAlpha(0f);
 
         // Setup the workspace
