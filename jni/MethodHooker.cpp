@@ -111,7 +111,7 @@ int ClearException(JNIEnv *jenv){
 
 bool isArt(){
 //	return true;
-	return false;//android 19 is dalvik vm.
+	return false;//android 19 is dalvik vm. androdi 5.0 shoul return true;
 }
 
 static jclass findAppClass(JNIEnv *jenv,const char *apn){

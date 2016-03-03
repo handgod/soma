@@ -20,6 +20,6 @@ extern "C" void InjectInterface(char*arg){
 
 extern "C" JNIEXPORT jstring JNICALL Java_com_example_testar_InjectApplication_test(JNIEnv *env, jclass clazz)
 {
-//	Abort_(); //test for art vm,remove it on android sdk api 19 ,running well.
+//	Abort_(); //test for art vm, remove it on android sdk api 19 ,running well.but in art vm,should open
     return env->NewStringUTF("wqm in so.cpp test () return haha ");;
 }
