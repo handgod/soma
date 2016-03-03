@@ -25,8 +25,10 @@ import android.animation.ValueAnimator;
 import android.animation.ValueAnimator.AnimatorUpdateListener;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -54,6 +56,9 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
 import java.util.ArrayList;
+
+import org.rajawali3d.surface.IRajawaliSurface;
+import org.rajawali3d.surface.IRajawaliSurfaceRenderer;
 
 interface Page {
     public int getPageChildCount();
@@ -266,6 +271,14 @@ public abstract class PagedView extends ViewGroup implements ViewGroup.OnHierarc
     // Bouncer
     private boolean mTopAlignPageWhenShrinkingForBouncer = false;
 
+//RajawaliSurface
+    protected IRajawaliSurface mRajawaliSurface;
+    protected IRajawaliSurfaceRenderer mRenderer;
+    public static  Bitmap mCanvasBitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
+
+    private Paint   mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Matrix  mMatrix = new Matrix();
+    private Bitmap[] BitmapWorkspace=new Bitmap[3];
     protected final Rect mInsets = new Rect();
 
     protected int mFirstChildLeft;
