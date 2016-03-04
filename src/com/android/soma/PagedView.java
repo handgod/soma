@@ -27,9 +27,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -41,6 +43,7 @@ import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -56,9 +59,47 @@ import android.view.animation.LinearInterpolator;
 import android.widget.Scroller;
 
 import java.util.ArrayList;
+import com.android.soma.ui.materials.CustomMaterialPlugin;
+import com.android.soma.ui.planes.PlanesGalore;
+import com.android.soma.ui.planes.PlanesGaloreMaterialPlugin;
+
+import org.rajawali3d.Object3D;
+import org.rajawali3d.animation.Animation;
+import org.rajawali3d.animation.Animation3D;
+import org.rajawali3d.animation.EllipticalOrbitAnimation3D;
+import org.rajawali3d.animation.RotateOnAxisAnimation;
+import org.rajawali3d.animation.SplineTranslateAnimation3D;
+import org.rajawali3d.animation.TranslateAnimation3D;
+import org.rajawali3d.curves.CatmullRomCurve3D;
+import org.rajawali3d.lights.ALight;
+import org.rajawali3d.lights.DirectionalLight;
+import org.rajawali3d.lights.PointLight;
+import org.rajawali3d.loader.LoaderAWD;
+import org.rajawali3d.loader.LoaderOBJ;
+import org.rajawali3d.loader.ParsingException;
+import org.rajawali3d.materials.Material;
+import org.rajawali3d.materials.methods.DiffuseMethod;
+import org.rajawali3d.materials.methods.SpecularMethod;
+import org.rajawali3d.materials.textures.ATexture;
+import org.rajawali3d.materials.textures.AlphaMapTexture;
+import org.rajawali3d.materials.textures.StreamingTexture;
+import org.rajawali3d.materials.textures.Texture;
+import org.rajawali3d.math.vector.Vector3;
+import org.rajawali3d.primitives.Cube;
+import org.rajawali3d.primitives.ScreenQuad;
+import org.rajawali3d.primitives.Sphere;
+import org.rajawali3d.renderer.RajawaliRenderer;
+import org.rajawali3d.surface.IRajawaliSurface;
 
 import org.rajawali3d.surface.IRajawaliSurface;
 import org.rajawali3d.surface.IRajawaliSurfaceRenderer;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 interface Page {
     public int getPageChildCount();

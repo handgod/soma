@@ -44,6 +44,7 @@ import org.rajawali3d.loader.LoaderOBJ;
 import org.rajawali3d.loader.ParsingException;
 import org.rajawali3d.materials.Material;
 import org.rajawali3d.materials.methods.DiffuseMethod;
+import org.rajawali3d.materials.methods.SpecularMethod;
 import org.rajawali3d.materials.plugins.FogMaterialPlugin;
 import org.rajawali3d.materials.textures.ATexture;
 import org.rajawali3d.materials.textures.AlphaMapTexture;
@@ -81,6 +82,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
 
     private AlphaMapTexture mTimeTexture;
     private Bitmap mTimeBitmap;
+    private AlphaMapTexture mPictureTexture;
     private Canvas mTimeCanvas;
     private Paint mTextPaint;
     private SimpleDateFormat mDateFormat;
@@ -121,10 +123,10 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
     @Override
     protected void initScene() {
 //      initScene_Orthographic();
-     // initScene_Sphere();
+//        initScene_Sphere();
     //  initScene_Cube();
 //      initScene_ArcballCamera();
-//      initScene_CanvasTexttoMaterial();
+    	initScene_CanvasTexttoMaterial();
 //      initScene_Skybox();
 //        initScene_Terrain();
 //        initScene_DebugVisualizer();
@@ -134,7 +136,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
     @Override
     protected void onRender(long ellapsedRealtime, double deltaTime) {
         super.onRender(ellapsedRealtime, deltaTime);
-       // onRender_CanvasTexttoMaterial(ellapsedRealtime, deltaTime);
+        onRender_CanvasTexttoMaterial(ellapsedRealtime, deltaTime);
 //        onRender_Skybox(ellapsedRealtime, deltaTime);
       //  onRender_DebugVisualizer(ellapsedRealtime, deltaTime);
 //        onRender_ViewTextureRenderer(ellapsedRealtime, deltaTime);
@@ -404,6 +406,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
         timeSphereMaterial.setDiffuseMethod(new DiffuseMethod.Lambert());
         mTimeBitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
         mTimeTexture = new AlphaMapTexture("timeTexture", mTimeBitmap);
+        
         try {
             timeSphereMaterial.addTexture(mTimeTexture);
         } catch (ATexture.TextureException e) {
@@ -413,7 +416,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
 
         Sphere parentSphere = null;
 
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 30; i++) {
             Sphere timeSphere = new Sphere(.6f, 12, 12);
             timeSphere.setMaterial(timeSphereMaterial);
             timeSphere.setDoubleSided(true);
@@ -443,6 +446,100 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
             anim.play();
         }
     }
+    
+    public void initScene_CanvasTexttoMaterial_new() {
+    	
+    	Object3D mObject3D;
+//    	
+    	Animation3D mLightAnim;
+    	
+        ALight light = new DirectionalLight(-1, 0, -1);
+        // DirectionalLight Directlight = new DirectionalLight(.1f, .1f, -1);
+        light.setPower(2);
+
+        getCurrentScene().addLight(light);
+        getCurrentCamera().setPosition(0, 0, 7);
+        getCurrentCamera().setLookAt(0, 0, 0);
+
+        mObject3D = new Cube(2.5f);
+//        mObject3D = new Plane(3.0f,4.0f,4,4);
+//        mObject3D= new Cube(3.0f,true,false,false,false,false);
+        //         mObject3D = new Cube(3.0f,true);
+//        mObject3D = new NPrism(6,3.0d,3.0f);
+//        mObject3D = new NPrism(6,2.0d,2.0f,0,3);
+//        mObject3D = new NPrism(6,2.0d,2.0f,3);
+//        mObject3D = new RectangularPrism(3.0f);
+        //             mObject3D = new RectangularPrism(3.0f,3,5.0f,true);
+//        mObject3D = new Sphere(1, 28, 28);
+//        mObject3D = new ScreenQuad();
+//        mObject3D = new Plane();
+        //mObject3D.setColor(0);
+
+        mObject3D.setPosition(0, 3, -1);
+        mObject3D.setDoubleSided(true);
+        mObject3D.setColor((int) (Math.random() * 0xffffff));
+//        mObject3D.setColor(0);
+        mObject3D.setRenderChildrenAsBatch(true);
+
+        Material material = new Material();
+
+        material.enableLighting(true);
+        material.setDiffuseMethod(new DiffuseMethod.Lambert());
+        material.setSpecularMethod(new SpecularMethod.Phong());
+//        material.setColorInfluence(0.5f);
+        material.setColorInfluence(0);
+//View to Texture
+//        mStreamingTexture = new StreamingTexture("viewTexture", this);
+
+//        material.setColorInfluence(0);
+//        mStreamingTexture.setInfluence(.5f);
+
+        //PictureTexture
+        mPictureTexture=new AlphaMapTexture("rajawaliTex", R.drawable.frame);
+//        mPictureTexture=new AlphaMapTexture("rajawaliTex", R.drawable.earth_diffuse);
+        mPictureTexture.setInfluence(.5f);
+
+//TimeBitmapTexture
+        mTimeBitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
+//        mTimeBitmap = PagedView.mCanvasBitmap;
+        mTimeTexture = new AlphaMapTexture("timeTexture", mTimeBitmap);
+        mTimeTexture.setInfluence(.5f);
+
+        try {
+            {
+//                material.addTexture(mStreamingTexture);
+//               material.addTexture(mPictureTexture);
+                   material.addTexture(mTimeTexture);
+            }
+        } catch (ATexture.TextureException e) {
+            e.printStackTrace();
+        }
+        mObject3D.setMaterial(material);
+        getCurrentScene().addChild(mObject3D);
+
+        Vector3 axis = new Vector3(1, 1, 1);
+        axis.normalize();
+
+        RotateOnAxisAnimation anim = new RotateOnAxisAnimation(axis, 0,360);
+        anim.setRepeatMode(Animation.RepeatMode.INFINITE);
+        anim.setDurationMilliseconds(12000);
+        anim.setInterpolator(new AccelerateDecelerateInterpolator());
+        anim.setTransformable3D(mObject3D);
+        getCurrentScene().registerAnimation(anim);
+        anim.play();
+        //mLightAnim1
+        mLightAnim = new TranslateAnimation3D(new Vector3(-1, 1, 1),
+                new Vector3(1, 2, 1));
+        mLightAnim.setDurationMilliseconds(4000);
+        mLightAnim.setRepeatMode(Animation.RepeatMode.REVERSE_INFINITE);
+        mLightAnim.setTransformable3D(light);
+        mLightAnim.setInterpolator(new AccelerateDecelerateInterpolator());
+        getCurrentScene().registerAnimation(mLightAnim);
+        mLightAnim.play();
+
+    }
+
+
     private void updateTimeBitmap() {
         new Thread(new Runnable() {
             public void run() {

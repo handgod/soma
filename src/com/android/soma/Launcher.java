@@ -1318,7 +1318,7 @@ public class Launcher extends FragmentActivity
             mWeightWatcher.setVisibility(show ? View.VISIBLE : View.GONE);
         }
         //RajawaliSurface
-        mRajawaliSurface = (IRajawaliSurface)mDragLayer.findViewById(R.id.rajwali_surface);
+       /*  mRajawaliSurface = (IRajawaliSurface)mDragLayer.findViewById(R.id.rajwali_surface);
         mRenderer = new CanvasRenderer(this);
         mRajawaliSurface.setSurfaceRenderer(mRenderer);
 
@@ -1330,8 +1330,8 @@ public class Launcher extends FragmentActivity
         fragmentFrame.setVisibility(View.INVISIBLE);
         mDragLayer.addView(fragmentFrame);
 
-        mFragmentToDraw = new FragmentToDraw();
-   //     this.getSupportFragmentManager().beginTransaction().add(R.id.view_to_texture_frame, mFragmentToDraw, "custom").commit();
+        mFragmentToDraw = new FragmentToDraw();*/
+//        this.getSupportFragmentManager().beginTransaction().add(R.id.view_to_texture_frame, mFragmentToDraw, "custom").commit();
     }
 
     /**
