@@ -85,6 +85,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
     private AlphaMapTexture mPictureTexture;
     private Canvas mTimeCanvas;
     private Paint mTextPaint;
+      
     private SimpleDateFormat mDateFormat;
    // private int mFrameCount;
  //   private boolean mShouldUpdateTexture;
@@ -126,7 +127,8 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
 //        initScene_Sphere();
     //  initScene_Cube();
 //      initScene_ArcballCamera();
-    	initScene_CanvasTexttoMaterial();
+//    	initScene_CanvasTexttoMaterial();
+    	initScene_CanvasTexttoMaterial_new();
 //      initScene_Skybox();
 //        initScene_Terrain();
 //        initScene_DebugVisualizer();
@@ -448,20 +450,18 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
     }
     
     public void initScene_CanvasTexttoMaterial_new() {
-    	
+ 	  	
     	Object3D mObject3D;
-//    	
     	Animation3D mLightAnim;
     	
-        ALight light = new DirectionalLight(-1, 0, -1);
-        // DirectionalLight Directlight = new DirectionalLight(.1f, .1f, -1);
+    	DirectionalLight light = new DirectionalLight(.1f, .1f, -1);
         light.setPower(2);
-
         getCurrentScene().addLight(light);
-        getCurrentCamera().setPosition(0, 0, 7);
-        getCurrentCamera().setLookAt(0, 0, 0);
 
-        mObject3D = new Cube(2.5f);
+//        getCurrentCamera().setPosition(0, 0, 7);
+//        getCurrentCamera().setLookAt(0, 0, 0);
+
+        mObject3D = new Cube(1f);
 //        mObject3D = new Plane(3.0f,4.0f,4,4);
 //        mObject3D= new Cube(3.0f,true,false,false,false,false);
         //         mObject3D = new Cube(3.0f,true);
@@ -475,10 +475,9 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
 //        mObject3D = new Plane();
         //mObject3D.setColor(0);
 
-        mObject3D.setPosition(0, 3, -1);
+        mObject3D.setPosition(0, 0, 0);
         mObject3D.setDoubleSided(true);
         mObject3D.setColor((int) (Math.random() * 0xffffff));
-//        mObject3D.setColor(0);
         mObject3D.setRenderChildrenAsBatch(true);
 
         Material material = new Material();
@@ -486,14 +485,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
         material.enableLighting(true);
         material.setDiffuseMethod(new DiffuseMethod.Lambert());
         material.setSpecularMethod(new SpecularMethod.Phong());
-//        material.setColorInfluence(0.5f);
-        material.setColorInfluence(0);
-//View to Texture
-//        mStreamingTexture = new StreamingTexture("viewTexture", this);
-
-//        material.setColorInfluence(0);
-//        mStreamingTexture.setInfluence(.5f);
-
+        material.setColorInfluence(0.5f);
         //PictureTexture
         mPictureTexture=new AlphaMapTexture("rajawaliTex", R.drawable.frame);
 //        mPictureTexture=new AlphaMapTexture("rajawaliTex", R.drawable.earth_diffuse);
@@ -501,19 +493,16 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
 
 //TimeBitmapTexture
         mTimeBitmap = Bitmap.createBitmap(256, 256, Bitmap.Config.ARGB_8888);
-//        mTimeBitmap = PagedView.mCanvasBitmap;
         mTimeTexture = new AlphaMapTexture("timeTexture", mTimeBitmap);
         mTimeTexture.setInfluence(.5f);
-
+        
         try {
-            {
-//                material.addTexture(mStreamingTexture);
-//               material.addTexture(mPictureTexture);
-                   material.addTexture(mTimeTexture);
-            }
+               material.addTexture(mTimeTexture);
+//                material.addTexture(mPictureTexture);
         } catch (ATexture.TextureException e) {
             e.printStackTrace();
         }
+        
         mObject3D.setMaterial(material);
         getCurrentScene().addChild(mObject3D);
 
@@ -527,6 +516,7 @@ public class WallpaperRenderer extends RajawaliRenderer implements StreamingText
         anim.setTransformable3D(mObject3D);
         getCurrentScene().registerAnimation(anim);
         anim.play();
+        
         //mLightAnim1
         mLightAnim = new TranslateAnimation3D(new Vector3(-1, 1, 1),
                 new Vector3(1, 2, 1));
